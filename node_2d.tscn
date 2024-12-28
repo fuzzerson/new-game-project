@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://7lup518eg5ri"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_kx6rd"]
+[ext_resource type="Texture2D" uid="uid://bqh7wmwj38ab0" path="res://0058-512x512.jpg" id="2_b3b6f"]
+[ext_resource type="FontFile" uid="uid://bxg08ih0fhghq" path="res://Magic Bubble.ttf" id="3_jbrq7"]
+[ext_resource type="Texture2D" uid="uid://bdnb18wtjd646" path="res://9444270_4178627.jpg" id="3_x5plw"]
+[ext_resource type="Texture2D" uid="uid://duwstkpyk2c41" path="res://left-24113_1280.webp" id="5_c6o5o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4g7md"]
+size = Vector2(590, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxhk4"]
+size = Vector2(9222, 60)
+
+[node name="world" type="Node2D"]
+script = ExtResource("1_kx6rd")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(286, 2)
+scale = Vector2(0.5, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(552, 1895.5)
+shape = SubResource("RectangleShape2D_4g7md")
+
+[node name="0058-512x512" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(552, 1896)
+scale = Vector2(1.15234, 0.0644531)
+texture = ExtResource("2_b3b6f")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(552, 1893.5)
+shape = SubResource("RectangleShape2D_4g7md")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(541, 957)
+
+[node name="94442704178627" type="Sprite2D" parent="Camera2D"]
+z_index = -1
+position = Vector2(48, 10)
+texture = ExtResource("3_x5plw")
+
+[node name="Label" type="Label" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -115.0
+offset_top = -917.0
+offset_right = 109.0
+offset_bottom = -848.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(110, -2)
+theme_override_fonts/font = ExtResource("3_jbrq7")
+theme_override_font_sizes/font_size = 50
+text = "Score = 0"
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Camera2D"]
+position = Vector2(-441, 680)
+scale = Vector2(0.151563, 0.084375)
+texture_normal = ExtResource("5_c6o5o")
+action = "left"
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="Camera2D"]
+position = Vector2(458, 792)
+rotation = 3.14159
+scale = Vector2(0.152975, 0.084375)
+texture_normal = ExtResource("5_c6o5o")
+action = "right"
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -100)
+
+[node name="Area2D" type="Area2D" parent="." groups=["wall"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(562, 1975)
+shape = SubResource("RectangleShape2D_yxhk4")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
