@@ -25,11 +25,14 @@ jobs:
 
     - name: Download Godot 4.3 Export Templates
       run: |
+        wget https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz -O export_templates.tpz
         mkdir -p ~/Library/Application\ Support/Godot/export_templates/4.3.stable
-        cd ~/Library/Application\ Support/Godot/export_templates/4.3.stable
-        wget https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
-        tar -xzf Godot_v4.3-stable_export_templates.tpz -C ~/Library/Application\ Support/Godot/export_templates/4.3.stable
-        ls ~/Library/Application\ Support/Godot/export_templates/4.3.stable
+        tar -xzf export_templates.tpz -C ~/Library/Application\ Support/Godot/export_templates/4.3.stable
+        mv ~/Library/Application\ Support/Godot/export_templates/4.3.stable/templates.*/* ~/Library/Application\ Support/Godot/export_templates/4.3.stable/
+        rm -rf ~/Library/Application\ Support/Godot/export_templates/4.3.stable/templates.*
+
+    - name: Verify Export Templates
+      run: ls -la ~/Library/Application\ Support/Godot/export_templates/4.3.stable
 
     - name: Create build directory
       run: mkdir -p build
